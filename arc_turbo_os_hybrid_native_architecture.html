@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ARC Turbo OS Hybrid Native Architecture</title>
+  <style>
+    :root{
+      --bg:#09101c; --panel:#10192d; --panel2:#0d1527; --text:#eef3ff; --muted:#9cb0d9;
+      --line:rgba(255,255,255,.08); --accent:#8b5cf6; --accent2:#22d3ee; --good:#22c55e; --warn:#f59e0b;
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif; color:var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(139,92,246,.18), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(34,211,238,.14), transparent 30%),
+        linear-gradient(180deg,#09101c,#0a1020 60%,#080d18);
+    }
+    .wrap{max-width:1500px;margin:0 auto;padding:24px}
+    .hero,.card{
+      background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.015)),var(--panel);
+      border:1px solid var(--line); border-radius:22px; box-shadow:var(--shadow);
+    }
+    .hero{padding:30px;margin-bottom:18px}
+    h1{margin:0 0 8px;font-size:42px;letter-spacing:-.04em}
+    h2{margin:0 0 8px;font-size:24px;letter-spacing:-.03em}
+    h3{margin:0 0 8px;font-size:18px}
+    .sub{color:var(--muted);line-height:1.55;max-width:1100px}
+    .pillrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+    .pill{border:1px solid var(--line);border-radius:999px;padding:8px 12px;color:var(--muted);font-size:12px;background:rgba(255,255,255,.02)}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:18px}
+    .card{padding:18px}
+    .label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:8px}
+    .big{font-size:30px;font-weight:800;letter-spacing:-.03em}
+    .muted{color:var(--muted)}
+    ul{margin:8px 0 0 18px;padding:0}
+    li{margin:5px 0;color:var(--muted)}
+    .stack{display:grid; gap:12px; margin-top:14px;}
+    .layer{
+      border:1px solid var(--line); border-radius:18px; padding:16px;
+      background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01)),var(--panel2);
+    }
+    .layer .name{font-size:18px;font-weight:800;letter-spacing:-.02em}
+    .layer .desc{margin-top:6px;color:var(--muted);line-height:1.45}
+    .good{color:#b9ffd0}
+    .warn{color:#ffe0a8}
+    .bad{color:#ffc0c0}
+    table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--panel2)}
+    th,td{padding:14px;vertical-align:top;border-bottom:1px solid var(--line);text-align:left}
+    th{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);background:rgba(255,255,255,.03)}
+    tr:last-child td{border-bottom:none}
+    code{
+      background:rgba(255,255,255,.05); border:1px solid var(--line);
+      padding:2px 6px; border-radius:8px; color:#fff;
+    }
+    pre{
+      margin:0; padding:16px; border:1px solid var(--line); border-radius:18px;
+      background:var(--panel2); overflow:auto; color:#eaf2ff; line-height:1.45;
+    }
+    .footer{margin-top:18px}
+    @media (max-width:1100px){
+      .grid,.grid3{grid-template-columns:1fr}
+      h1{font-size:32px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="label">Hybrid Native System Spec</div>
+      <h1>ARC Turbo OS — Cross-Platform Native Hybrid Architecture</h1>
+      <div class="sub">
+        ARC Turbo OS should not begin as a full replacement operating system. The viable path is a <strong>hybrid native runtime</strong> that sits above macOS, Windows, and Linux while owning the deterministic execution layer, ARC receipt layer, branch/session rail, and jump-to-resolved-output engine. Native matters because the runtime must reliably wrap process launches, filesystem mutations, OS services, window/workspace state, and external tool execution with strong provenance and low overhead.
+      </div>
+      <div class="pillrow">
+        <div class="pill">Native Host Adapters</div>
+        <div class="pill">Deterministic Runtime Core</div>
+        <div class="pill">ARC Receipt Spine</div>
+        <div class="pill">Branch-Aware Workspace</div>
+        <div class="pill">Resolved Output Jumping</div>
+        <div class="pill">Cross-Platform Shell</div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <div class="label">Core Position</div>
+        <div class="big">Hybrid first, replacement later</div>
+        <div class="muted" style="margin-top:8px">
+          The smartest rollout is to run on top of existing operating systems first. The host OS keeps hardware, drivers,
+          raw windowing, networking, and security primitives. ARC Turbo OS owns deterministic tasks, branch/session state,
+          event lineage, workspace materialization, and turbo execution collapse.
+        </div>
+      </div>
+      <div class="card">
+        <div class="label">Why Native Matters</div>
+        <div class="big">Receipts must touch reality</div>
+        <div class="muted" style="margin-top:8px">
+          A browser-only shell is fine for demos, but the real product must capture process launches, file deltas,
+          shell commands, native windows, OS services, and external I/O with low latency. That requires native adapters.
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-bottom:18px">
+      <div class="label">Architecture Stack</div>
+      <div class="stack">
+        <div class="layer">
+          <div class="name">Layer 0 — Host Operating System</div>
+          <div class="desc">
+            macOS, Windows, or Linux remains in charge of drivers, device access, kernel scheduling, networking, display,
+            raw filesystem access, and platform security boundaries.
+          </div>
+        </div>
+        <div class="layer">
+          <div class="name">Layer 1 — Native Host Adapter</div>
+          <div class="desc">
+            Platform-specific native code wraps host behaviors and emits ARC receipts: process launch, window state,
+            filesystem mutations, notifications, shell execution, clipboard, drag/drop, service hooks, and native dialogs.
+          </div>
+        </div>
+        <div class="layer">
+          <div class="name">Layer 2 — Deterministic Runtime Core</div>
+          <div class="desc">
+            Seed-rooted execution engine. Owns branch/session rail, binary event spine, task normalization, explicit graph expansion,
+            cache resolution, and deterministic replay for managed workflows.
+          </div>
+        </div>
+        <div class="layer">
+          <div class="name">Layer 3 — ARC Receipt + Provenance Core</div>
+          <div class="desc">
+            Causal ledger that answers: what happened, why it happened, what depended on it, whether it was external or internal,
+            and which branch/session lineage produced the output.
+          </div>
+        </div>
+        <div class="layer">
+          <div class="name">Layer 4 — Turbo Resolver</div>
+          <div class="desc">
+            Normalizes tasks into canonical problem IDs, expands implicit commands into explicit graphs, matches reusable outputs,
+            skips solved subgraphs, and jumps directly to reachable end states when available.
+          </div>
+        </div>
+        <div class="layer">
+          <div class="name">Layer 5 — Native/Hybrid UX Shell</div>
+          <div class="desc">
+            Desktop workspace, session rail, branch explorer, receipt inspector, task graph viewer, and resolved-output navigator.
+            This can be Tauri/Electron-backed at first, but must be fed by the native adapter and deterministic core.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid3">
+      <div class="card">
+        <div class="label">What Must Be Native</div>
+        <ul>
+          <li>Process launch and termination wrappers</li>
+          <li>Filesystem watches and write interception</li>
+          <li>OS service and notification hooks</li>
+          <li>Window/workspace state integration</li>
+          <li>Shell command adapters</li>
+          <li>Clipboard, drag/drop, native dialogs</li>
+          <li>External tool execution receipts</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="label">What Can Be Cross-Platform Runtime</div>
+        <ul>
+          <li>Seed/session genesis</li>
+          <li>Binary event spine format</li>
+          <li>ARC receipt schema</li>
+          <li>Task normalization</li>
+          <li>Implicit → explicit command expansion</li>
+          <li>Resolved output index</li>
+          <li>Branch rail logic</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="label">What Can Start as Web UI</div>
+        <ul>
+          <li>Session rail interface</li>
+          <li>Receipt explorer</li>
+          <li>Task graph visualization</li>
+          <li>Branch comparison views</li>
+          <li>Resolved output jump panel</li>
+          <li>Workspace dashboards</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="margin-bottom:18px">
+      <div class="label">Per-OS Native Adapter Ownership</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Platform</th>
+            <th>Native Layer</th>
+            <th>What It Owns</th>
+            <th>Why It Matters</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>macOS</strong></td>
+            <td>Swift + SwiftUI/AppKit or Rust bridge</td>
+            <td>Launch Services, Finder hooks, file watchers, native windows, notifications, clipboard, shell tasks</td>
+            <td>Needed for clean workspace restore, service integration, native process receipts, low-latency desktop control</td>
+          </tr>
+          <tr>
+            <td><strong>Windows</strong></td>
+            <td>C# / WinUI or Rust + Win32 bindings</td>
+            <td>Explorer integration, process wrapping, filesystem events, jump lists, shell execution, native task orchestration</td>
+            <td>Needed for stable command wrapping, OS-level workspace materialization, and proper artifact/build workflows</td>
+          </tr>
+          <tr>
+            <td><strong>Linux</strong></td>
+            <td>Rust + GTK / platform shell integration</td>
+            <td>File watchers, desktop notifications, shell adapters, process wrapping, window session integration</td>
+            <td>Needed for reproducible CLI-heavy workflows and native desktop-level session capture</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <div class="label">Recommended Runtime Stack</div>
+        <pre>UI Shell: Tauri or Electron
+Runtime Core: Rust preferred (or Go/Node hybrid)
+ARC Core: Rust/TypeScript shared schemas
+Task Graph Engine: Rust or TypeScript
+Receipt Storage: SQLite + binary event blobs
+Resolved Output Index: SQLite / LMDB / RocksDB
+Native Adapters:
+  - macOS: Swift bridge + Rust core
+  - Windows: C#/Rust bridge
+  - Linux: Rust native adapter</pre>
+      </div>
+      <div class="card">
+        <div class="label">Why Rust Is Best For Core</div>
+        <ul>
+          <li>Strong fit for deterministic state machines</li>
+          <li>Fast binary event handling</li>
+          <li>Safe cross-platform systems code</li>
+          <li>Great host for native adapters and FFI</li>
+          <li>Easy to expose to Tauri and native shells</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="margin-bottom:18px">
+      <div class="label">Execution Model</div>
+      <pre>user intent
+→ normalize task
+→ canonical problem id
+→ ARC checks prior lineage and resolved outputs
+→ if exact or derivable endpoint exists:
+      jump to end state
+  else:
+      expand implicit command into explicit graph
+      compute only missing nodes
+      emit receipts for every mutation
+      store final result in resolved output index
+→ materialize output into host OS workspace</pre>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <div class="label">v1 Native Hybrid Scope</div>
+        <ul>
+          <li><span class="good">Own</span> build/package/export tasks</li>
+          <li><span class="good">Own</span> branch/session rail</li>
+          <li><span class="good">Own</span> ARC receipt capture for wrapped tools</li>
+          <li><span class="good">Own</span> resolved output jumps for deterministic workflows</li>
+          <li><span class="warn">Wrap</span> external tools and shell commands</li>
+          <li><span class="warn">Track</span> workspace windows, not arbitrary full app internals</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="label">Do Not Try In v1</div>
+        <ul>
+          <li><span class="bad">Do not</span> replace the host kernel</li>
+          <li><span class="bad">Do not</span> fully virtualize every third-party app</li>
+          <li><span class="bad">Do not</span> force global determinism on the whole machine</li>
+          <li><span class="bad">Do not</span> claim universal instant compute</li>
+          <li><span class="bad">Do not</span> overbuild deep GUI capture first</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="margin-bottom:18px">
+      <div class="label">Suggested Repo Structure</div>
+      <pre>arc-turbo-os/
+  README.md
+  docs/
+    hybrid-native-architecture.html
+    patent-claim-notes.md
+  apps/
+    shell-ui/                 # Tauri/Electron frontend
+  core/
+    seed-genesis/
+    event-spine/
+    arc-receipts/
+    task-normalizer/
+    turbo-resolver/
+    branch-rail/
+  adapters/
+    macos-native/
+    windows-native/
+    linux-native/
+    shell-wrapper/
+    filesystem-wrapper/
+  storage/
+    sqlite-schema/
+    resolved-output-index/
+  sdk/
+    task-api/
+    receipt-api/
+    native-bridge-api/</pre>
+    </section>
+
+    <section class="card footer">
+      <div class="label">Bottom Line</div>
+      <div class="big" style="font-size:26px">Yes, it can be hybrid to any OS — but the runtime must be native where receipts touch reality.</div>
+      <div class="muted" style="margin-top:10px">
+        The viable system is a <strong>cross-platform deterministic runtime with native per-OS adapters</strong>. The host OS stays in place.
+        ARC Turbo OS owns the reproducible task layer, branch/session logic, receipts, and jump-to-resolved-output engine.
+      </div>
+    </section>
+  </div>
+</body>
+</html>
